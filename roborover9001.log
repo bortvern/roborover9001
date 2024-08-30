@@ -1,0 +1,4 @@
+2024-08-30 19:34:26,808 [DEBUG] Mock GPIO setmode: BCM
+2024-08-30 19:34:26,808 [DEBUG] Mock GPIO setup: pin 23, mode OUT
+2024-08-30 19:34:26,808 [DEBUG] Mock GPIO setup: pin 24, mode IN
+2024-08-30 19:34:26,808 [DEBUG] Mock GPIO output: pin 23, state False
