@@ -1,5 +1,48 @@
-import RPi.GPIO as GPIO
 import time
+import sys
+
+# Attempt to import RPi.GPIO, and mock it if unavailable (e.g., on Windows)
+try:
+    import RPi.GPIO as GPIO
+except ImportError:
+    class MockGPIO:
+        BCM = 'BCM'
+        OUT = 'OUT'
+        IN = 'IN'
+        HIGH = True
+        LOW = False
+        
+        def setmode(self, mode):
+            print(f"Mock GPIO setmode: {mode}")
+
+        def setup(self, pin, mode):
+            print(f"Mock GPIO setup: pin {pin}, mode {mode}")
+
+        def output(self, pin, state):
+            print(f"Mock GPIO output: pin {pin}, state {state}")
+
+        def PWM(self, pin, frequency):
+            print(f"Mock GPIO PWM setup: pin {pin}, frequency {frequency}")
+            class PWM:
+                def __init__(self, pin, frequency):
+                    self.pin = pin
+                    self.frequency = frequency
+
+                def start(self, duty_cycle):
+                    print(f"Mock PWM start on pin {self.pin}: duty cycle {duty_cycle}%")
+
+                def ChangeDutyCycle(self, duty_cycle):
+                    print(f"Mock PWM change duty cycle on pin {self.pin}: duty cycle {duty_cycle}%")
+
+                def stop(self):
+                    print(f"Mock PWM stop on pin {self.pin}")
+                    
+            return PWM(pin, frequency)
+
+        def cleanup(self):
+            print("Mock GPIO cleanup")
+
+    GPIO = MockGPIO()
 
 # GPIO pin setup
 MOTOR_PWM_PIN = 18  # PWM pin for motor control
