@@ -1,2 +1,4 @@
 pyzmq
 RPi.GPIO
+matplotlib
+numpy
